@@ -9,14 +9,21 @@ html, body {
 
 #calculator {
 	display: flex;
-	flex-flow: column wrap;
-	max-width: 400px;
+	flex-direction: column;
+	max-width: 440px;
 }
 
-
 .buttons{
-	color: red;
+	flex: 1;
 	padding: 30px;
-} 
+	background-color: #ddd;
+	cursor: pointer;
+}
 
+.containers{
+	display: flex;
+}
 
+button#zero{
+	flex: 7;
+}
