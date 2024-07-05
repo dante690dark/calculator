@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel='stylesheet' href='style.css' >
-	<script src='script.js' defer></script>
-	<title>Calculator</title>
-</head>
-<body>
-	<div id="calculator">
-		<div class='containers'>
-			<button type='button'class='buttons' id='reset'><span>AC</span></button>
-			<button type='button'class='buttons' id='sign'><span>+/-</span></button>
-			<button type='button'class='buttons' id='percentage'><span>%</span></button>
-			<button type='button'class='buttons' id='divide'><span>÷</span></button>
-		</div>
-		<div class='containers'>
-			<button type='button'class='buttons' id='seven'><span>7</span></button>
-			<button type='button'class='buttons' id='eight'><span>8</span></button>
-			<button type='button'class='buttons' id='nine'><span>9</span></button>
-			<button type='button'class='buttons' id='multiply'><span>*</span></button>
-		</div>
-		<div class='containers'>
-			<button type='button'class='buttons' id='four'><span>4</span></button>
-			<button type='button'class='buttons' id='five'><span>5</span></button>
-			<button type='button'class='buttons' id='six'><span>6</span></button>
-			<button type='button'class='buttons' id='substract'><span>-</span></button>
-		</div>
-		<div class='containers'>
-			<button type='button'class='buttons' id='one'><span>1</span></button>
-			<button type='button'class='buttons' id='two'><span>2</span></button>
-			<button type='button'class='buttons' id='three'><span>3</span></button>
-			<button type='button'class='buttons' id='plus'><span>+</span></button>
-		</div>
-		<div class='containers'>
-			<button type='button'class='buttons' id='zero'><span>0</span></button>
-			<button type='button'class='buttons' id='quoute'><span>,</span></button>
-			<button type='button'class='buttons' id='equal'><span>=</span></button>
-		</div>
-	</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div id="calculator">
+      <div id="display" class="display">0</div>
+      <div class="containers">
+        <button type="button" class="buttons button-operation" id="reset">
+          <span>AC</span>
+        </button>
+        <button type="button" class="buttons button-operation" id="sign">
+          <span>+/-</span>
+        </button>
+        <button type="button" class="buttons button-operation" id="percentage">
+          <span>%</span>
+        </button>
+        <button type="button" class="buttons button-operation" id="divide">
+          <span>÷</span>
+        </button>
+      </div>
+      <div class="containers">
+        <button type="button" class="buttons" id="seven"><span>7</span></button>
+        <button type="button" class="buttons" id="eight"><span>8</span></button>
+        <button type="button" class="buttons" id="nine"><span>9</span></button>
+        <button type="button" class="buttons button-operation" id="multiply">
+          <span>*</span>
+        </button>
+      </div>
+      <div class="containers">
+        <button type="button" class="buttons" id="four"><span>4</span></button>
+        <button type="button" class="buttons" id="five"><span>5</span></button>
+        <button type="button" class="buttons" id="six"><span>6</span></button>
+        <button type="button" class="buttons button-operation" id="subtract">
+          <span>-</span>
+        </button>
+      </div>
+      <div class="containers">
+        <button type="button" class="buttons" id="one"><span>1</span></button>
+        <button type="button" class="buttons" id="two"><span>2</span></button>
+        <button type="button" class="buttons" id="three"><span>3</span></button>
+        <button type="button" class="buttons button-operation" id="plus">
+          <span>+</span>
+        </button>
+      </div>
+      <div class="containers">
+        <button type="button" class="buttons" id="zero"><span>0</span></button>
+        <button type="button" class="buttons" id="decimal">
+          <span>.</span>
+        </button>
+        <button type="button" class="buttons button-operation" id="equal">
+          <span>=</span>
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
