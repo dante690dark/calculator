@@ -20,6 +20,9 @@ const buttonsArray = [...buttons]
 
 buttonsArray.forEach(button => {
   button.addEventListener('click', (e) => {
+
+    if(e.target.innerText === 'AC') return display.innerText = ''
+    
     display.innerText += e.target.innerText
     console.log( typeof +display)
   });
