@@ -19,11 +19,19 @@ const buttons = document.querySelectorAll('.buttons')
 const buttonsArray = [...buttons]
 
 buttonsArray.forEach(button => {
-  button.addEventListener('click', (e) => {
+  button.addEventListener('click', ({target: {innerText: text}}) => {
 
-    if(e.target.innerText === 'AC') return display.innerText = ''
-    
-    display.innerText += e.target.innerText
-    console.log( typeof +display)
+    switch(text){
+      case 'AC':
+        display.innerText = ''
+        break;
+      case  '+':
+        console.log('funciono el switch');
+      default:
+        display.innerText += text
+        firsNumber = +text
+    }
+
+    //TODO: do the number six in https://www.theodinproject.com/lessons/foundations-calculator
   });
 });
