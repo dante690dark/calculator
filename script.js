@@ -1,12 +1,13 @@
-let firsNumber, secondNumber, operator, result
+let firstNumber = '', secondNumber = '', operator = '', result = 0
 
-const sum = (a, b ) => a + b
-const subtract = (a, b ) => a - b
-const multiply = (a, b ) => a * b
-const divide = (a, b ) => a / b
+const sum = (a, b) => a + b
+const subtract = (a, b) => a - b
+const multiply = (a, b) => a * b
+const divide = (a, b) => a / b
 
-
-const operate = (num1, num2) => {
+const operate = () => {
+  const num1 = +firstNumber
+  const num2 = +secondNumber
 
   switch(operator) {     
     case '+':
@@ -18,13 +19,20 @@ const operate = (num1, num2) => {
     case '*':
       result = multiply(num1, num2)
       break
-    default:      
+    case '÷':
       result = divide(num1, num2)
+      break
+    default:      
+      result = 0
   }
   
+  display.innerText = result
+  firstNumber = ''
+  secondNumber = ''
+  operator = ''
 }
 
-//Events
+// Events
 const display = document.querySelector('#display')
 const buttons = document.querySelectorAll('.buttons')
 
@@ -35,37 +43,30 @@ buttonsArray.forEach(button => {
 
     switch(text) {
       case 'AC':
-        display.innerText = 0
-        firsNumber = 0
-        secondNumber = 0
+        operate()
         break
       case '+':
       case '-':
       case '*':
-      case '/':
-        display.innerText = text
-        operator = text
+      case '÷':
+        if(firstNumber && !operator) {
+          operator = text
+          display.innerText = operator
+        }
         break
       case '=':
-        display.innerText = ''
-        display.innerText = result
+        firstNumber && secondNumber && operator && operate()
         break
       default:
-        display.innerText = ''
-        display.innerText += text
-
-        if(firsNumber){
-          secondNumber = +text;
+        if(!operator){
+          firstNumber += text
+          display.innerText = firstNumber
         }
-        else{
-          firsNumber = +text
+
+        if(operator){
+          secondNumber += text
+          display.innerText = secondNumber
         }
     }
-
-    firsNumber && secondNumber && operate(firsNumber, secondNumber)
   });
 });
-
-
-    // FIXME: fix the calculator when you have number greater than 9
-    // FIXME: fix the sequence of number to have number greater than 9
