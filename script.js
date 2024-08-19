@@ -35,7 +35,7 @@ buttonsArray.forEach(button => {
 
     switch(text) {
       case 'AC':
-        display.innerText = ''
+        display.innerText = 0
         firsNumber = 0
         secondNumber = 0
         break
@@ -63,9 +63,9 @@ buttonsArray.forEach(button => {
     }
 
     firsNumber && secondNumber && operate(firsNumber, secondNumber)
-``
-    // FIXME: fix the calculator when you have number greater than 9
-    // FIXME: fix the sequence of number to have number greater than 9
-    // FIXME: fix the padding in the screen
   });
 });
+
+
+    // FIXME: fix the calculator when you have number greater than 9
+    // FIXME: fix the sequence of number to have number greater than 9
