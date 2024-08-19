@@ -63,8 +63,9 @@ buttonsArray.forEach(button => {
     }
 
     firsNumber && secondNumber && operate(firsNumber, secondNumber)
-
-    //TODO: fix the calculator when you have number greater than 9
-    //TODO: fix the sequence of number to have number greater than 9
+``
+    // FIXME: fix the calculator when you have number greater than 9
+    // FIXME: fix the sequence of number to have number greater than 9
+    // FIXME: fix the padding in the screen
   });
 });
