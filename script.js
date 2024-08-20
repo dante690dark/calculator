@@ -75,13 +75,16 @@ buttonsArray.forEach(button => {
           firstNumber += text
           display.innerText = firstNumber
           clear.innerText = "C"
-        } else {
+        }
+
+        if(firstNumber && operator){
           secondNumber += text
           display.innerText = secondNumber
         }
     }
   });
 });
+
 
 // TODO: Do point 7
 
