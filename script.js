@@ -1,10 +1,5 @@
 let firstNumber = '', secondNumber = '', operator = '', result = 0
 
-const INITIAL_VALUE = {
-  zero: 0,
-  reset: 'AC' 
-}
-
 const sum = (a, b) => a + b
 const subtract = (a, b) => a - b
 const multiply = (a, b) => a * b
@@ -21,14 +16,14 @@ const operate = () => {
     case '-':
       result = subtract(num1, num2)
       break
-    case '*':
+    case 'x':
       result = multiply(num1, num2)
       break
     case '÷':
       result = divide(num1, num2)
       break
     default:      
-      result = INITIAL_VALUE.zero
+      result = 0
   }
   
   display.innerText = result
@@ -42,26 +37,25 @@ const display = document.querySelector('#display')
 const reset = document.querySelector('#reset')
 const buttons = document.querySelectorAll('.buttons')
 
-display.innerText = INITIAL_VALUE.zero
-reset.innerText = INITIAL_VALUE.reset
+display.innerText = 0
+reset.innerText = 'AC'
 const buttonsArray = [...buttons]
 
 buttonsArray.forEach(button => {
   button.addEventListener('click', ({target: {innerText: text}}) => {
 
     switch(text) {
-      case INITIAL_VALUE.reset:
       case 'C':
-        if(text === 'C') reset.innerText = INITIAL_VALUE.reset
+      case 'AC':
+        if(text === 'C') reset.innerText = 'AC'
         operate()
         break
       case '+':
       case '-':
-      case '*':
+      case 'x':
       case '÷':
         if(firstNumber && !operator) {
           operator = text
-          display.innerText = operator
         }
         break
       case '=':
@@ -81,3 +75,5 @@ buttonsArray.forEach(button => {
     }
   });
 });
+
+// TODO: when you click show a hover
