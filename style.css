@@ -52,3 +52,11 @@ button#zero {
   background-color: #ffa500;
   color: white;
 }
+
+.buttons:active{
+  background-color: gray;
+}
+
+.buttons.button-operation:active{
+  background-color: #ffa600de;
+}

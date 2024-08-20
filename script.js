@@ -34,11 +34,11 @@ const operate = () => {
 
 // Events
 const display = document.querySelector('#display')
-const reset = document.querySelector('#reset')
+const clear = document.querySelector('#clear')
 const buttons = document.querySelectorAll('.buttons')
 
 display.innerText = 0
-reset.innerText = 'AC'
+clear.innerText = 'AC'
 const buttonsArray = [...buttons]
 
 buttonsArray.forEach(button => {
@@ -47,7 +47,7 @@ buttonsArray.forEach(button => {
     switch(text) {
       case 'C':
       case 'AC':
-        if(text === 'C') reset.innerText = 'AC'
+        if(text === 'C') clear.innerText = 'AC'
         operate()
         break
       case '+':
@@ -65,7 +65,7 @@ buttonsArray.forEach(button => {
         if(!operator){
           firstNumber += text
           display.innerText = firstNumber
-          reset.innerText = "C"
+          clear.innerText = "C"
         }
 
         if(operator){
