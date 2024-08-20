@@ -1,5 +1,10 @@
 let firstNumber = '', secondNumber = '', operator = '', result = 0
 
+const INITIAL_VALUE = {
+  zero: 0,
+  reset: 'AC' 
+}
+
 const sum = (a, b) => a + b
 const subtract = (a, b) => a - b
 const multiply = (a, b) => a * b
@@ -23,7 +28,7 @@ const operate = () => {
       result = divide(num1, num2)
       break
     default:      
-      result = 0
+      result = INITIAL_VALUE.zero
   }
   
   display.innerText = result
@@ -34,15 +39,20 @@ const operate = () => {
 
 // Events
 const display = document.querySelector('#display')
+const reset = document.querySelector('#reset')
 const buttons = document.querySelectorAll('.buttons')
 
+display.innerText = INITIAL_VALUE.zero
+reset.innerText = INITIAL_VALUE.reset
 const buttonsArray = [...buttons]
 
 buttonsArray.forEach(button => {
   button.addEventListener('click', ({target: {innerText: text}}) => {
 
     switch(text) {
-      case 'AC':
+      case INITIAL_VALUE.reset:
+      case 'C':
+        if(text === 'C') reset.innerText = INITIAL_VALUE.reset
         operate()
         break
       case '+':
@@ -61,6 +71,7 @@ buttonsArray.forEach(button => {
         if(!operator){
           firstNumber += text
           display.innerText = firstNumber
+          reset.innerText = "C"
         }
 
         if(operator){
