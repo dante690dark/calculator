@@ -3,7 +3,8 @@ let firstNumber = '', secondNumber = '', operator = '', result = 0
 const sum = (a, b) => a + b
 const subtract = (a, b) => a - b
 const multiply = (a, b) => a * b
-const divide = (a, b) => a / b
+const divide = (a, b) => b !== 0 ? a / b : 'Error'
+const convertDecimal = num1 => num1 / 100
 
 const operate = () => {
   const num1 = +firstNumber
@@ -27,7 +28,8 @@ const operate = () => {
   }
   
   display.innerText = result
-  firstNumber = ''
+
+  firstNumber = result + ''
   secondNumber = ''
   operator = ''
 }
@@ -48,32 +50,35 @@ buttonsArray.forEach(button => {
       case 'C':
       case 'AC':
         if(text === 'C') clear.innerText = 'AC'
-        operate()
+        firstNumber = ''
+        secondNumber = ''
+        operator = ''
+        display.innerText = 0
+        break
+      case '%':
+        if(firstNumber && !operator) {
+          firstNumber = convertDecimal(+firstNumber) + ''
+          display.innerText = firstNumber
+        }
         break
       case '+':
       case '-':
       case 'x':
       case '÷':
-        if(firstNumber && !operator) {
-          operator = text
-        }
+        if(firstNumber && !operator) operator = text
         break
       case '=':
-        firstNumber && secondNumber && operator && operate()
+        if (firstNumber && secondNumber && operator) operate()
         break
       default:
         if(!operator){
           firstNumber += text
           display.innerText = firstNumber
           clear.innerText = "C"
-        }
-
-        if(operator){
+        } else {
           secondNumber += text
           display.innerText = secondNumber
         }
     }
   });
 });
-
-// TODO: when you click show a hover
