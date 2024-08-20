@@ -83,5 +83,7 @@ buttonsArray.forEach(button => {
   });
 });
 
-// TODO: pending functionality with +/-
-// TODO: pending functionality with ,
+// TODO: Do point 7
+
+// FIXME: pending functionality with ,
+// FIXME: pending functionality with +/-
