@@ -82,3 +82,6 @@ buttonsArray.forEach(button => {
     }
   });
 });
+
+// TODO: pending functionality with +/-
+// TODO: pending functionality with ,
