@@ -29,12 +29,12 @@ const operate = () => {
     default:      
       result = 0
   }
-  result = +(result.toFixed(2));
-  
-  firstNumber = result.toString().replace('.', ',')
+  const resultFixed = +(result.toFixed(2));
+
+  firstNumber = resultFixed.toString().replace('.', ',')
   displayScreen(firstNumber)
   secondNumber = ''
-  operator = ''
+  operator = '' 
 }
 
 // Events
@@ -85,6 +85,8 @@ buttonsArray.forEach(button => {
       case 'x':
       case '÷':
         if(firstNumber && !operator) operator = text
+        if(firstNumber && secondNumber && operator) operate()
+        operator = text
         break
       case '=':
         if (firstNumber && secondNumber && operator) operate()
@@ -107,6 +109,5 @@ buttonsArray.forEach(button => {
 
 // TODO: Do point 7
 
-// FIXME: add margin o padding to center the numbers in screen
 // FIXME: when you change an operator for other always takes the first one
 // FIXME: fix the ',' to have the expected behavior 
