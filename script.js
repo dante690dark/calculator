@@ -29,7 +29,7 @@ const operate = () => {
     default:      
       result = 0
   }
-  const resultFixed = result !== 'Error' ? +(result.toFixed(2)) : "Error";
+  const resultFixed = result !== 'Error' ? +(result.toFixed(3)) : "Error";
 
   firstNumber = resultFixed.toString().replace('.', ',')
   displayScreen(firstNumber)
@@ -60,23 +60,25 @@ buttonsArray.forEach(button => {
         break
       case '+/-':
         if(firstNumber && !operator && !secondNumber) {  
-          firstNumber = convertOperant(+(firstNumber).toString().replace(',', '.')).toString().replace('.', ',')
+          firstNumber = convertOperant(+(firstNumber.replace(',', '.'))).toString().replace('.', ',')
           displayScreen(firstNumber)
         }
 
         if(firstNumber && operator && secondNumber) {
-          secondNumber = convertOperant(+(secondNumber).toString().replace(',', '.')).toString().replace('.', ',')
+          secondNumber = convertOperant(+(secondNumber.replace(',', '.'))).toString().replace('.', ',')
           displayScreen(secondNumber)
         }
         break
       case '%':
         if(firstNumber && !operator && !secondNumber) {
-          firstNumber = convertDecimal(+firstNumber).toString().replace('.', ',')
+          const tempNumber = +firstNumber.replace(',', '.')
+          firstNumber = convertDecimal(tempNumber).toString().replace('.', ',')
           displayScreen(firstNumber)
         }
 
         if(firstNumber && operator && secondNumber) {
-          secondNumber = convertDecimal(+secondNumber).toString().replace('.', ',')
+          const tempNumber = +secondNumber.replace(',', '.')
+          secondNumber = convertDecimal(tempNumber).toString().replace('.', ',')
           displayScreen(secondNumber)
         }
         break
@@ -92,9 +94,14 @@ buttonsArray.forEach(button => {
         if (firstNumber && operator && secondNumber) operate()
         break
       case ',':
-        const number = 0.
-        if(!firstNumber && !operator && !secondNumber) firstNumber = number.toString().replace('.', ',')
-        if(firstNumber && operator && !secondNumber) secondNumber = number.toString().replace('.', ',')
+        if (!operator) {
+          firstNumber = firstNumber.includes(',') ? firstNumber : (firstNumber || '0') + ','
+          displayScreen(firstNumber)
+        } else {
+          secondNumber = secondNumber.includes(',') ? secondNumber : (secondNumber || '0') + ','
+          displayScreen(secondNumber)
+        }
+        break
       default:
         if(!operator){
           firstNumber += text
@@ -107,10 +114,5 @@ buttonsArray.forEach(button => {
           displayScreen(secondNumber.replace('.', ','))
         }
     }
-  });
-});
-
-
-// TODO: Do extra point
-
-// FIXME: fix when you input a decimal value and press the button %, NaN
+  })
+})
