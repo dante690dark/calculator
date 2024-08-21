@@ -29,7 +29,7 @@ const operate = () => {
     default:      
       result = 0
   }
-  const resultFixed = +(result.toFixed(2));
+  const resultFixed = result !== 'Error' ? +(result.toFixed(2)) : "Error";
 
   firstNumber = resultFixed.toString().replace('.', ',')
   displayScreen(firstNumber)
@@ -59,23 +59,23 @@ buttonsArray.forEach(button => {
         displayScreen(0)
         break
       case '+/-':
-        if(firstNumber && !secondNumber && !operator) {  
+        if(firstNumber && !operator && !secondNumber) {  
           firstNumber = convertOperant(+(firstNumber).toString().replace(',', '.')).toString().replace('.', ',')
           displayScreen(firstNumber)
         }
 
-        if(firstNumber && secondNumber && operator) {
+        if(firstNumber && operator && secondNumber) {
           secondNumber = convertOperant(+(secondNumber).toString().replace(',', '.')).toString().replace('.', ',')
           displayScreen(secondNumber)
         }
         break
       case '%':
-        if(firstNumber && !secondNumber && !operator) {
+        if(firstNumber && !operator && !secondNumber) {
           firstNumber = convertDecimal(+firstNumber).toString().replace('.', ',')
           displayScreen(firstNumber)
         }
 
-        if(firstNumber && secondNumber && operator) {
+        if(firstNumber && operator && secondNumber) {
           secondNumber = convertDecimal(+secondNumber).toString().replace('.', ',')
           displayScreen(secondNumber)
         }
@@ -85,12 +85,16 @@ buttonsArray.forEach(button => {
       case 'x':
       case '÷':
         if(firstNumber && !operator) operator = text
-        if(firstNumber && secondNumber && operator) operate()
+        if(firstNumber && operator && secondNumber ) operate()
         operator = text
         break
       case '=':
-        if (firstNumber && secondNumber && operator) operate()
+        if (firstNumber && operator && secondNumber) operate()
         break
+      case ',':
+        const number = 0.
+        if(!firstNumber && !operator && !secondNumber) firstNumber = number.toString().replace('.', ',')
+        if(firstNumber && operator && !secondNumber) secondNumber = number.toString().replace('.', ',')
       default:
         if(!operator){
           firstNumber += text
@@ -107,7 +111,6 @@ buttonsArray.forEach(button => {
 });
 
 
-// TODO: Do point 7
+// TODO: Do extra point
 
-// FIXME: when you change an operator for other always takes the first one
-// FIXME: fix the ',' to have the expected behavior 
+// FIXME: fix when you input a decimal value and press the button %, NaN
