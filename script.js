@@ -116,3 +116,9 @@ buttonsArray.forEach(button => {
     }
   })
 })
+
+// TODO: Add keyboard support!
+
+// FIXME: fix when you press 0 and press 9 should apper 9
+// FIXME: fix when you press 0 several time, it can't apper 0000...
+// FIXME: fix when you press a sing an then a number
