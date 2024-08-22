@@ -111,7 +111,7 @@ buttonsArray.forEach(button => {
           clear.innerText = "C"
         }
 
-        if(firstNumber && operator){
+        if(operator){
           secondNumber += text
           displayScreen(secondNumber.replace('.', ','))
         }
