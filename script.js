@@ -71,14 +71,14 @@ buttonsArray.forEach(button => {
         break
       case '%':
         if(firstNumber && !operator && !secondNumber) {
-          const tempNumber = +firstNumber.replace(',', '.')
-          firstNumber = convertDecimal(tempNumber).toString().replace('.', ',')
+          const number = +firstNumber.replace(',', '.')
+          firstNumber = convertDecimal(number).toString().replace('.', ',')
           displayScreen(firstNumber)
         }
 
         if(firstNumber && operator && secondNumber) {
-          const tempNumber = +secondNumber.replace(',', '.')
-          secondNumber = convertDecimal(tempNumber).toString().replace('.', ',')
+          const number = +secondNumber.replace(',', '.')
+          secondNumber = convertDecimal(number).toString().replace('.', ',')
           displayScreen(secondNumber)
         }
         break
@@ -97,10 +97,13 @@ buttonsArray.forEach(button => {
         if (!operator) {
           firstNumber = firstNumber.includes(',') ? firstNumber : (firstNumber || '0') + ','
           displayScreen(firstNumber)
-        } else {
+        }
+        
+        if(operator){
           secondNumber = secondNumber.includes(',') ? secondNumber : (secondNumber || '0') + ','
           displayScreen(secondNumber)
         }
+
         break
       default:
         if(text === '0' && !firstNumber) return
