@@ -148,3 +148,4 @@ document.addEventListener('keydown', (event) => {
 })
 
 // FIXME: fix when you press an operator, then a number a finally and operator again, unexpected behavior
+// FIXME: add more styles to looks like apple calculator
