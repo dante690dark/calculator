@@ -7,11 +7,14 @@ const divide = (a, b) => b !== 0 ? a / b : 'Error'
 const convertDecimal = num => num / 100
 const convertOperant = num => num * (-1)
 
+const formatNumber = num => num.toString().replace('.', ',');
+const parseNumber = num => +(num.replace(',', '.'));
+
 const displayScreen = number => display.innerText = number
 
 const operate = () => {
-  const num1 = +(firstNumber.replace(',', '.'))
-  const num2 = +(secondNumber.replace(',', '.'))
+  const num1 = parseNumber(firstNumber)
+  const num2 = parseNumber(secondNumber)
 
   switch(operator) {     
     case '+':
@@ -31,7 +34,7 @@ const operate = () => {
   }
   const resultFixed = result !== 'Error' ? +(result.toFixed(3)) : "Error";
 
-  firstNumber = resultFixed.toString().replace('.', ',')
+  firstNumber = formatNumber(resultFixed)
   displayScreen(firstNumber)
   secondNumber = ''
   operator = '' 
@@ -60,25 +63,23 @@ buttonsArray.forEach(button => {
         break
       case '+/-':
         if(firstNumber && !operator && !secondNumber) {  
-          firstNumber = convertOperant(+(firstNumber.replace(',', '.'))).toString().replace('.', ',')
+          firstNumber = formatNumber(convertOperant(parseNumber(firstNumber)))
           displayScreen(firstNumber)
         }
 
         if(firstNumber && operator && secondNumber) {
-          secondNumber = convertOperant(+(secondNumber.replace(',', '.'))).toString().replace('.', ',')
+          secondNumber = formatNumber(convertOperant(parseNumber(secondNumber)))
           displayScreen(secondNumber)
         }
         break
       case '%':
         if(firstNumber && !operator && !secondNumber) {
-          const number = +firstNumber.replace(',', '.')
-          firstNumber = convertDecimal(number).toString().replace('.', ',')
+          firstNumber = formatNumber(convertDecimal(parseNumber(firstNumber)))
           displayScreen(firstNumber)
         }
 
         if(firstNumber && operator && secondNumber) {
-          const number = +secondNumber.replace(',', '.')
-          secondNumber = convertDecimal(number).toString().replace('.', ',')
+          secondNumber = formatNumber(convertDecimal(parseNumber(secondNumber)))
           displayScreen(secondNumber)
         }
         break
@@ -95,32 +96,31 @@ buttonsArray.forEach(button => {
         break
       case ',':
         if (!operator) {
-          firstNumber = firstNumber.includes(',') ? firstNumber : (firstNumber || '0') + ','
-          displayScreen(firstNumber)
+          firstNumber = firstNumber.includes(',') ? firstNumber : (firstNumber || '0') + ',';
+        } else {
+          secondNumber = secondNumber.includes(',') ? secondNumber : (secondNumber || '0') + ',';
         }
-        
-        if(operator){
-          secondNumber = secondNumber.includes(',') ? secondNumber : (secondNumber || '0') + ','
-          displayScreen(secondNumber)
-        }
-
+        displayScreen(operator ? secondNumber : firstNumber);
         break
       default:
         if(text === '0' && !firstNumber) return
         
         if(!operator){
           firstNumber += text
-          displayScreen(firstNumber.replace('.', ','))
+          displayScreen(formatNumber(firstNumber))
           clear.innerText = "C"
         }
 
         if(operator){
           secondNumber += text
-          displayScreen(secondNumber.replace('.', ','))
+          displayScreen(formatNumber(secondNumber))
         }
     }
   })
 })
 
+
+
+
 // TODO: Add keyboard support!
-// FIXME: fix when you press a sing an then a number
+// FIXME: fix when you press an operator, then a number a finally and operator again, unexpected behavior
