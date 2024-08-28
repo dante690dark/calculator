@@ -51,8 +51,7 @@ const buttonsArray = [...buttons]
 
 const handleInput = (text) => {
   switch(text) {
-    case 'C':
-    case 'AC':
+    case ['C', 'AC'].includes(text):
       if(text === 'C') clear.innerText = 'AC'
       firstNumber = ''
       secondNumber = ''
@@ -81,16 +80,14 @@ const handleInput = (text) => {
         displayScreen(secondNumber)
       }
       break
-    case '+':
-    case '-':
-    case 'x':
-    case '÷':
+    case ['+', '-', '*', '/'].includes(text):
       if(firstNumber && !operator) operator = text
       if(firstNumber && operator && secondNumber ) operate()
       operator = text
       break
     case '=':
     case 'Enter':
+    case ['=', 'Enter'].includes(text):
       if (firstNumber && operator && secondNumber) operate()
       break
     case ',':
