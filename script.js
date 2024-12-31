@@ -149,3 +149,4 @@ document.addEventListener('keydown', (event) => {
 
 // FIXME: fix when you press an operator, then a number a finally and operator again, unexpected behavior
 // FIXME: add more styles to looks like apple current apple calculator
+// FIXME: change C button for x button, that letme to delete one element on the screen
