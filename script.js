@@ -7,7 +7,7 @@ const divide = (a, b) => b !== 0 ? a / b : 'Error'
 const convertDecimal = num => num / 100
 const convertOperant = num => num * (-1)
 
-const formatNumber = num => String(num.replace('.', ','))
+const formatNumber = num => String(num).replace('.', ',')
 const parseNumber = num => Number(num.replace(',', '.'))
 
 const displayScreen = number => display.innerText = number
