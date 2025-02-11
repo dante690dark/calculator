@@ -1,7 +1,8 @@
-let firstNumber = '', secondNumber = '', operator = '', result = 0
+let firstNumber = '', secondNumber = '', operator = '', result = null
 
 
 const OPERATORS = ['+', '-', 'x', '÷', '*', '/']
+const OPERATORS_KEY_MAP = { '*': 'x', '/': '÷' }
 
 const sum = (a, b) => a + b
 const subtract = (a, b) => a - b
@@ -35,7 +36,7 @@ const operate = () => {
     default:      
       result = 0
   }
-  const resultFixed = result !== 'Error' ? +(result.toFixed(3)) : "Error"
+  const resultFixed = result !== 'Error' ? Number(result.toFixed(3)) : "Error"
 
   firstNumber = formatNumber(resultFixed)
   displayScreen(firstNumber)
@@ -50,23 +51,34 @@ const buttons = document.querySelectorAll('.buttons')
 
 displayScreen(0)
 clear.innerText = 'AC'
-const buttonsArray = [...buttons]
 
 const handleInput = (text) => {
 
-  if(result !== 0) {
-    firstNumber = ''
+  if (result !== null) {
+    firstNumber = OPERATORS.includes(text) ? formatNumber(result) : ''
     secondNumber = ''
     operator = ''
-    result = 0
+    result = null
+  }
+
+  if( OPERATORS.includes(text) && !firstNumber && !secondNumber  ) {
+    if (text === '-') {
+      firstNumber = '-'
+      displayScreen(firstNumber)
+    }
+    return
   }
   
-  if( OPERATORS.includes(text) && !firstNumber && !secondNumber) {
+  if (text === '-' && firstNumber && operator && !secondNumber) {
+    secondNumber = '-'
+    displayScreen(secondNumber)
     return
   }
 
+  const findElement = (element) => element === text
+
   switch(text) {
-    case ['AC', 'C'].find(clearText => clearText === text):
+    case ['AC', 'C'].find(findElement):
       if(text === 'C') clear.innerText = 'AC'
       firstNumber = ''
       secondNumber = ''
@@ -95,13 +107,12 @@ const handleInput = (text) => {
         displayScreen(secondNumber)
       }
       break
-    case OPERATORS.find(operator => operator === text):
+    case OPERATORS.find(findElement):
       if(firstNumber && !operator) operator = text
       if(firstNumber && operator && secondNumber ) operate()
       operator = text
       break
     case '=':
-    case 'Enter':
       if (firstNumber && operator && secondNumber) operate()
       break
     case ',':
@@ -128,13 +139,12 @@ const handleInput = (text) => {
   }
 }
 
-buttonsArray.forEach(button => {
+[...buttons].forEach(button => {
   button.addEventListener('click', ({target: {innerText: text}}) => handleInput(text))
 })
 
 // Keyboard support
-document.addEventListener('keydown', (event) => {
-  const key = event.key
+document.addEventListener('keydown', ({key}) => {
 
   switch (true) {
     case /[0-9]/.test(key):
@@ -146,12 +156,11 @@ document.addEventListener('keydown', (event) => {
     case key === 'Backspace':
       handleInput('C')
       break
-    case key === 'Enter' || key === '=':
+    case key === 'Enter':
       handleInput('=')
       break
     case OPERATORS.includes(key):
-      const operatorMap = { '*': 'x', '/': '÷' }
-      handleInput(operatorMap[key] || key)
+      handleInput(OPERATORS_KEY_MAP[key] || key)
       break
     default:
       console.log(`Tecla no manejada: ${key}`)
