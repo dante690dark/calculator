@@ -1,5 +1,8 @@
 let firstNumber = '', secondNumber = '', operator = '', result = 0
 
+
+const OPERATORS = ['+', '-', 'x', '÷', '*', '/']
+
 const sum = (a, b) => a + b
 const subtract = (a, b) => a - b
 const multiply = (a, b) => a * b
@@ -50,9 +53,20 @@ clear.innerText = 'AC'
 const buttonsArray = [...buttons]
 
 const handleInput = (text) => {
+
+  if(result !== 0) {
+    firstNumber = ''
+    secondNumber = ''
+    operator = ''
+    result = 0
+  }
+  
+  if( OPERATORS.includes(text) && !firstNumber && !secondNumber) {
+    return
+  }
+
   switch(text) {
-    case 'C':
-    case 'AC':
+    case ['AC', 'C'].find(clearText => clearText === text):
       if(text === 'C') clear.innerText = 'AC'
       firstNumber = ''
       secondNumber = ''
@@ -81,10 +95,7 @@ const handleInput = (text) => {
         displayScreen(secondNumber)
       }
       break
-    case '+':
-    case '-':
-    case 'x':
-    case '÷':
+    case OPERATORS.find(operator => operator === text):
       if(firstNumber && !operator) operator = text
       if(firstNumber && operator && secondNumber ) operate()
       operator = text
@@ -138,7 +149,7 @@ document.addEventListener('keydown', (event) => {
     case key === 'Enter' || key === '=':
       handleInput('=')
       break
-    case ['+', '-', '*', '/'].includes(key):
+    case OPERATORS.includes(key):
       const operatorMap = { '*': 'x', '/': '÷' }
       handleInput(operatorMap[key] || key)
       break
@@ -146,9 +157,3 @@ document.addEventListener('keydown', (event) => {
       console.log(`Tecla no manejada: ${key}`)
   }
 })
-
-// FIXME: show the operator on the screen with the numbers
-// FIXME: change C button for x button to delete elements one by one
-// FIXME: override the result when you press a number after getting the result
-// FIXME: fix when you press an operator, then a number a finally and operator again, unexpected behavior
-// FIXME: add more styles to looks like apple current apple calculator
