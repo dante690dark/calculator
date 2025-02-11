@@ -7,8 +7,8 @@ const divide = (a, b) => b !== 0 ? a / b : 'Error'
 const convertDecimal = num => num / 100
 const convertOperant = num => num * (-1)
 
-const formatNumber = num => num.toString().replace('.', ',')
-const parseNumber = num => +(num.replace(',', '.'))
+const formatNumber = num => String(num.replace('.', ','))
+const parseNumber = num => Number(num.replace(',', '.'))
 
 const displayScreen = number => display.innerText = number
 
@@ -147,7 +147,8 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
-// FIXME: the operator should diplay on the screen
-// FIXME: change C button for x button, that letme to delete one element on the screenå
+// FIXME: show the operator on the screen with the numbers
+// FIXME: change C button for x button to delete elements one by one
+// FIXME: override the result when you press a number after getting the result
 // FIXME: fix when you press an operator, then a number a finally and operator again, unexpected behavior
 // FIXME: add more styles to looks like apple current apple calculator
