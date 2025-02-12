@@ -2,6 +2,8 @@ let firstNumber = '', secondNumber = '', operator = '', result = null
 
 
 const OPERATORS = ['+', '-', 'x', '÷', '*', '/']
+const DELETE_OPERATORS = ['AC', 'C']
+const CONVERSION_OPERATORS = ['+/-', '%']
 const OPERATORS_KEY_MAP = { '*': 'x', '/': '÷' }
 
 const sum = (a, b) => a + b
@@ -55,7 +57,7 @@ clear.innerText = 'AC'
 const handleInput = (text) => {
 
   if (result !== null) {
-    firstNumber = OPERATORS.includes(text) ? formatNumber(result) : ''
+    firstNumber = OPERATORS.includes(text) ? formatNumber(result) : firstNumber
     secondNumber = ''
     operator = ''
     result = null
@@ -78,34 +80,26 @@ const handleInput = (text) => {
   const findElement = (element) => element === text
 
   switch(text) {
-    case ['AC', 'C'].find(findElement):
+    case DELETE_OPERATORS.find(findElement):
       if(text === 'C') clear.innerText = 'AC'
       firstNumber = ''
       secondNumber = ''
       operator = ''
       displayScreen(0)
       break
-    case '+/-':
-      if(firstNumber && !operator && !secondNumber) {  
-        firstNumber = formatNumber(convertOperant(parseNumber(firstNumber)))
+    case CONVERSION_OPERATORS.find(findElement):
+      const conversionFunction = text === '+/-' ? convertOperant : convertDecimal
+
+      if (firstNumber && !operator && !secondNumber) {
+        firstNumber = formatNumber(conversionFunction(parseNumber(firstNumber)))
         displayScreen(firstNumber)
       }
 
-      if(firstNumber && operator && secondNumber) {
-        secondNumber = formatNumber(convertOperant(parseNumber(secondNumber)))
+      if (firstNumber && operator && secondNumber) {
+        secondNumber = formatNumber(conversionFunction(parseNumber(secondNumber)))
         displayScreen(secondNumber)
-      }
-      break
-    case '%':
-      if(firstNumber && !operator && !secondNumber) {
-        firstNumber = formatNumber(convertDecimal(parseNumber(firstNumber)))
-        displayScreen(firstNumber)
       }
 
-      if(firstNumber && operator && secondNumber) {
-        secondNumber = formatNumber(convertDecimal(parseNumber(secondNumber)))
-        displayScreen(secondNumber)
-      }
       break
     case OPERATORS.find(findElement):
       if(firstNumber && !operator) operator = text
@@ -144,25 +138,25 @@ const handleInput = (text) => {
 })
 
 // Keyboard support
-document.addEventListener('keydown', ({key}) => {
+document.addEventListener('keydown', ({ key }) => {
+  try {
+    if (/^[0-9]$/.test(key)) return handleInput(key)
 
-  switch (true) {
-    case /[0-9]/.test(key):
-      handleInput(key)
-      break
-    case key === ',':
-      handleInput(',')
-      break
-    case key === 'Backspace':
-      handleInput('C')
-      break
-    case key === 'Enter':
-      handleInput('=')
-      break
-    case OPERATORS.includes(key):
-      handleInput(OPERATORS_KEY_MAP[key] || key)
-      break
-    default:
-      console.log(`Tecla no manejada: ${key}`)
+    switch (key) {
+      case ',':
+        return handleInput(',')
+      case 'Backspace':
+        return handleInput('C')
+      case 'Enter':
+        return handleInput('=')
+      default:
+        if (Object.hasOwn(OPERATORS_KEY_MAP, key)) {
+          return handleInput(OPERATORS_KEY_MAP[key] ?? key)
+        }
+
+        throw new Error(`Tecla no válida: ${key}`)
+    }
+  } catch (error) {
+    console.error(error.message)
   }
 })
