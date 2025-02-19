@@ -57,7 +57,7 @@ clear.innerText = 'AC'
 const handleInput = (text) => {
 
   if (result !== null) {
-    firstNumber = OPERATORS.includes(text) ? formatNumber(result) : firstNumber
+    firstNumber = OPERATORS.includes(text) ? formatNumber(result) : ''
     secondNumber = ''
     operator = ''
     result = null
